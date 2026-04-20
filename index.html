@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>課題①成果物_占い_最終提出版</title>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/vuetify@3.6.11/dist/vuetify.min.css'>
+<link rel='stylesheet' href='https://unpkg.com/@mdi/font@6.x/css/materialdesignicons.min.css'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900'><link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <!-- Vueで指定された"app"要素、この中でのみVueが有効 -->
+<div id="app" align=center>
+  <v-app>
+
+    <!--     アプリケーションバー -->
+    <v-app-bar color="primary">
+       <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+       <v-app-bar-title align=left>占いアプリ</v-app-bar-title>
+    </v-app-bar>
+ 
+    <!--       ここが機能していない -->
+    <v-navigation-drawer v-model="drawer">
+      <v-list>
+        <v-list-item title="Home" value="home"></v-list-item>
+        <v-list-item title="About" value="about"></v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+    
+    <v-main>
+       <!--       con1:タイトル -->
+       <v-container class="con1">
+         <h1>☆あなたの運勢占います☆</h1>
+       </v-container>
+       <!--         境界線 -->
+       <v-divider thickness="2" color="black" opacity=".8" variant="double"></v-divider>
+    
+       <!-- con3:表  -->
+       <v-container class="con3">
+          <!--         運勢表示ボタン -->
+        <v-row class="text-h6" justify="center">
+          <v-btn 
+            class="mb-10 mt-5" color="black" size="normal"
+            rounded="pill" @click="getFortune" variant="outlined">
+            <v-icon color="black" size="30" icon="mdi-crystal-ball" class="mr-1"></v-icon>
+            今の運勢を表示
+          </v-btn>
+        </v-row>
+
+        <table id="table" align=center border="1">
+          <thead>
+           <tr>
+             <th>運勢</th>
+             <th>メッセージ</th>
+             <th>ラッキーカラー</th>
+             <th>ラッキーアイテム</th>
+             <th>風水</th>
+           </tr>
+          </thead>
+          <tbody>
+             <tr>
+               <th>{{ result }} </th>
+               <th>{{ message }}</th>
+               <th>{{ color }}</th>
+               <th>{{ item }}</th>
+               <th>{{ direction }}</th>
+             </tr>
+          </tbody>
+        </table>
+
+        <v-row class="mb-3 mt-3" align="center" justify="center">
+          運勢：{{ result }}</v-row>
+        <v-row class="mb-3 mt-3" align="center" justify="center">
+          メッセージ：{{ message }}</v-row>
+        <v-row class="mb-3 mt-3" align="center" justify="center">
+          ラッキーカラー：{{ color }}</v-row>
+        <v-row class="mb-3 mt-3" align="center" justify="center">
+          ラッキーアイテム：{{ item }}</v-row>
+        <v-row class="mb-3 mt-3" align="center" justify="center">
+          風水：{{ direction }}</v-row>
+
+       </v-container>
+
+       <!--         境界線 -->
+       <v-divider thickness="2" color="black" opacity=".8" variant="double"></v-divider>
+
+       <!-- con4:カード形式 -->
+       <v-container class="con4"> 
+        <v-row class="mb-1 mt-1">
+          <v-col>
+            <v-card variant="elevated" elevation="5" color="indigo-darken-4" rounded="xl">
+              <div class="d-flex justify-center">
+                <v-card color="indigo-darken-4"
+                  class="w-5" variant="flat">
+                  <template v-slot:prepend>
+                    <v-icon icon="mdi-book-open-variant" color="blue-lighten-3"></v-icon>
+                  </template>
+                  <template v-slot:title>今日の運勢</template>
+                  <template v-slot:subtitle>結果はボタンを押してからのお楽しみ </template>
+                  <v-btn class="ml-3 mb-3 mt-3" color="#E6E6FA" size="small"rounded="pill" @click="getFortune" variant="outlined">
+                    <v-icon color="d#E6E6FA" size="20" icon="mdi-star" class="mr-1"></v-icon>今の運勢を表示
+                  </v-btn>
+
+                  <v-card-text>
+                    運勢：{{ result }}<br>
+                    メッセージ：{{ message }}<br>
+                    ラッキーカラー：{{ color }}<br>
+                    ラッキーアイテム：{{ item }}<br>
+                    風水：{{ direction }}
+                  </v-card-text>
+
+                  <v-card-actions>
+                    <v-btn>
+                      <v-icon icon="mdi-flag-outline" color="white" class="me-2"></v-icon>good
+                    </v-btn>
+                    <v-btn>
+                      <v-icon icon="mdi-flag-variant" color="red-darken-4" class="me-2"></v-icon> bad
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+                <v-img src="https://i.gyazo.com/d9500a5e7a9e9c9358d792185fdb8361.jpg" class="me-4"></v-img>
+              </div>
+            </v-card>
+          </v-col>
+        </v-row>
+     </v-container>
+     <!--         境界線 -->
+     <v-divider thickness="2" color="black" opacity=".8" variant="double"></v-divider>    
+    </v-main>
+  
+   <v-footer color="primary" app>
+      <v-btn color="primary" icon="mdi-home"></v-btn>
+      <v-btn color="primary" icon="mdi-file"></v-btn>
+      <v-btn color="primary" icon="mdi-google"></v-btn>
+   </v-footer>
+  </v-app>
+</div>
+    <script src='https://unpkg.com/vue@3/dist/vue.global.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/vuetify@3.6.11/dist/vuetify.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js'></script><script  src="./script.js"></script>
+
+  </body>
+  
+</html>
